@@ -3,7 +3,7 @@ import Shimmer from "./Shimmer";
 import { fetchWithProxy } from "../utils/helpers";
 import { SWIGGY_MENU_URL, ITEM_CDN } from "../utils/constants";
 
-const RestaurantMenu = ({ resId, onBack, onAddToCart, onRemoveFromCart, cartItems }) => {
+const RestaurantMenu = ({ resId, lat, lng, onBack, onAddToCart, onRemoveFromCart, cartItems }) => {
   const [resInfo, setResInfo] = useState(null);
   const [menuCategories, setMenuCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,13 +12,16 @@ const RestaurantMenu = ({ resId, onBack, onAddToCart, onRemoveFromCart, cartItem
 
   useEffect(() => {
     fetchMenu();
-  }, [resId]);
+  }, [resId, lat, lng]);
 
   const fetchMenu = async () => {
     setLoading(true);
     setMenuError(null);
     try {
-      const json = await fetchWithProxy(SWIGGY_MENU_URL + resId);
+      const latVal = lat || 12.97530;
+      const lngVal = lng || 77.59100;
+      const menuUrl = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${latVal}&lng=${lngVal}&restaurantId=${resId}`;
+      const json = await fetchWithProxy(menuUrl);
       console.log("Menu API response:", json);
 
       // Find restaurant info - try multiple paths

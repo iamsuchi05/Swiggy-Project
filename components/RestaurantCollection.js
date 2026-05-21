@@ -3,20 +3,22 @@ import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
 import { fetchWithProxy } from "../utils/helpers";
 
-const RestaurantCollection = ({ collectionId, tags, title, onBack, onCardClick }) => {
+const RestaurantCollection = ({ collectionId, tags, title, lat, lng, onBack, onCardClick }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCollection();
-  }, [collectionId, tags]);
+  }, [collectionId, tags, lat, lng]);
 
   const fetchCollection = async () => {
     setLoading(true);
     setError(null);
     try {
-      const url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.97530&lng=77.59100&collection=${collectionId}&tags=${tags}&type=rcv2`;
+      const latVal = lat || 12.97530;
+      const lngVal = lng || 77.59100;
+      const url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${latVal}&lng=${lngVal}&collection=${collectionId}&tags=${tags}&type=rcv2`;
       const json = await fetchWithProxy(url);
       const cards = json?.data?.cards || [];
       

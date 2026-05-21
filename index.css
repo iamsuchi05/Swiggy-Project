@@ -69,16 +69,28 @@ body {
 
 .location-label {
   font-weight: 700;
-  font-size: 14px;
-  color: var(--text-dark);
-  border-bottom: 2px solid var(--text-dark);
-  padding-bottom: 1px;
-}
-
-.location-detail {
   font-size: 13px;
   color: var(--text-light);
-  margin-left: 6px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.location-select {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--text-dark);
+  padding: 2px 4px 2px 0;
+  cursor: pointer;
+  outline: none;
+  max-width: 180px;
+}
+
+.location-select:focus {
+  border-bottom-color: var(--orange);
 }
 
 .header-nav {

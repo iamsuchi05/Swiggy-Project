@@ -32,15 +32,59 @@ const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // Geolocation states
+  const [coords, setCoords] = useState({ lat: 12.97530, lng: 77.59100 });
+  const [locationName, setLocationName] = useState("Bangalore");
+
+  const handleLocationChange = (lat, lng, name) => {
+    setCoords({ lat, lng });
+    setLocationName(name);
+    setView({ page: "home" });
+  };
+
+  const triggerGeolocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          setCoords({ lat, lng });
+          setLocationName(`${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+          setView({ page: "home" });
+        },
+        () => alert("Location access denied. Please allow location permissions.")
+      );
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          setCoords({ lat, lng });
+          setLocationName(`${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+        },
+        (err) => {
+          console.warn("Geolocation permission denied or failed, using Bangalore default:", err.message);
+        }
+      );
+    }
+  }, []);
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [coords]);
 
   const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const json = await fetchWithProxy(SWIGGY_LIST_URL);
+      const url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${coords.lat}&lng=${coords.lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`;
+      const json = await fetchWithProxy(url);
       const cards = json?.data?.cards || [];
 
       // Parse "What's on your mind?" carousel
@@ -185,7 +229,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header cartCount={cartQty} onCartClick={() => setCartOpen(true)} onHomeClick={() => setView({ page: "home" })} />
+      <Header cartCount={cartQty} locationName={locationName} onCartClick={() => setCartOpen(true)} onHomeClick={() => setView({ page: "home" })} onLocationChange={handleLocationChange} onTriggerGeolocation={triggerGeolocation} />
 
       <main className="main">
         {view.page === "home" ? (
@@ -223,11 +267,13 @@ const App = () => {
             collectionId={view.collectionId}
             tags={view.tags}
             title={view.title}
+            lat={coords.lat}
+            lng={coords.lng}
             onBack={() => setView({ page: "home" })}
             onCardClick={(id) => setView({ page: "menu", resId: id })}
           />
         ) : (
-          <RestaurantMenu resId={view.resId} onBack={() => setView({ page: "home" })} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} cartItems={cart} />
+          <RestaurantMenu resId={view.resId} lat={coords.lat} lng={coords.lng} onBack={() => setView({ page: "home" })} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} cartItems={cart} />
         )}
       </main>
 

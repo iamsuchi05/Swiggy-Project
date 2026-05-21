@@ -8,7 +8,7 @@ Hey there! Welcome to this awesome **Swiggy Clone** web app. It looks, feels, an
 
 Here is a simple list of all the cool features packed into this app:
 
-*   **Live Restaurant Feed**: Automatically shows active restaurants around Bangalore using real live data.
+*   **Live Geolocation API Integration**: Requests location access on mount to automatically find and display active restaurants, top chains, curated collections, and menus specific to *your actual current coordinates*! (Falls back cleanly to Bangalore if blocked.)
 *   **What's on your mind? Carousel**: Smooth category sliding scroll! Click on pizza, biryani, or burger, and it will load a brand-new page with restaurants matching that specific category.
 *   **Search & Filtering**:
     *   Find your favorite spots by typing in the search box.
@@ -55,7 +55,7 @@ It is extremely easy to get this app up and running on your machine:
     ```
 2.  **Start the React Development Server** (compiles components and serves the page):
     ```bash
-    npm run dev
+    npm run start
     ```
     *or*
     ```bash
