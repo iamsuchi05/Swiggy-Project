@@ -1,0 +1,23 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "THis is Namaste react",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --no-cache",
+    "test": "jest"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "kiran",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.13.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
