@@ -67,30 +67,56 @@ body {
   height: 40px;
 }
 
-.location-label {
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--text-light);
-  display: block;
-  margin-bottom: 2px;
+.header-location-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.location-select {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-dark);
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid var(--text-dark);
-  padding: 2px 4px 2px 0;
+.header-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  outline: none;
-  max-width: 180px;
 }
 
-.location-select:focus {
+.location-type {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 14px;
+  border-bottom: 2px solid var(--text-dark);
+  padding-bottom: 2px;
+  transition: var(--transition);
+}
+
+.header-location-wrapper:hover .location-type {
+  color: var(--orange);
   border-bottom-color: var(--orange);
+}
+
+.location-text {
+  color: var(--text-sub);
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 250px;
+}
+
+.location-arrow {
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
+}
+
+.location-select-hidden {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .header-nav {

@@ -20,10 +20,16 @@ const Header = ({ cartCount, locationName, onCartClick, onHomeClick, onLocationC
       <div className="header-content">
         <div className="header-left">
           <img src={LOGO_URL} alt="Swiggy Logo" className="header-logo" onClick={onHomeClick} style={{ cursor: "pointer" }} />
-          <div className="header-location">
-            <span className="location-label">📍 Location</span>
+          <div className="header-location-wrapper">
+            <div className="header-location">
+              <span className="location-type">Other</span>
+              <span className="location-text">{locationName}</span>
+              <span className="location-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{width: '14px', height: '14px', color: '#fc8019'}}><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+            </div>
             <select
-              className="location-select"
+              className="location-select-hidden"
               value={selectValue}
               onChange={(e) => {
                 const val = e.target.value;
@@ -42,7 +48,7 @@ const Header = ({ cartCount, locationName, onCartClick, onHomeClick, onLocationC
               ))}
               {!isPopularSelected && (
                 <option value="custom">
-                  {locationName && locationName.length > 15 ? locationName.slice(0, 15) + "..." : locationName}
+                  {locationName && locationName.length > 25 ? locationName.slice(0, 25) + "..." : locationName}
                 </option>
               )}
               <option value="geo">🛰️ Get Live Location</option>
@@ -55,6 +61,8 @@ const Header = ({ cartCount, locationName, onCartClick, onHomeClick, onLocationC
           <div className="nav-link"><span>🎫</span> Offers</div>
           <div className="nav-link"><span>❓</span> Help</div>
           <div className="nav-link"><span>👤</span> Sign In</div>
+
+
           <div className="nav-link cart-link" onClick={onCartClick}>
             <span>🛒</span> Cart
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}

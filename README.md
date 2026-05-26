@@ -6,8 +6,6 @@ Hey there! Welcome to this awesome **Swiggy Clone** web app. It looks, feels, an
 
 ## 🌟 What This App Can Do!
 
-Here is a simple list of all the cool features packed into this app:
-
 *   **Live Geolocation API Integration**: Requests location access on mount to automatically find and display active restaurants, top chains, curated collections, and menus specific to *your actual current coordinates*! (Falls back cleanly to Bangalore if blocked.)
 *   **What's on your mind? Carousel**: Smooth category sliding scroll! Click on pizza, biryani, or burger, and it will load a brand-new page with restaurants matching that specific category.
 *   **Search & Filtering**:

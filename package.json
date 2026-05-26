@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "THis is Namaste react",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html --no-cache",
+    "start": "cross-env PARCEL_WORKERS=1 parcel index.html --no-cache --log-level verbose",
+    "build": "cross-env PARCEL_WORKERS=1 parcel build index.html --no-cache",
     "test": "jest"
   },
   "keywords": [
@@ -13,6 +13,7 @@
   "author": "kiran",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "parcel": "^2.13.3",
     "process": "^0.11.10"
   },
